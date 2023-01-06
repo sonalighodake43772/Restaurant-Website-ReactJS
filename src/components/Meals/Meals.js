@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import MealList from './MealList';
 import MealSummery from './MealSummery';
 const Meals =()=>
 {
 return(
+    <Fragment>
     < MealSummery/>
+    <MealList/>
+    </Fragment>
 
 );
 }
