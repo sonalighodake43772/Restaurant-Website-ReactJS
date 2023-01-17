@@ -6,7 +6,10 @@ import CartItem from "./CartItem";
 const Cart = (props) => {
   const cartcntx = useContext(CartContext);
 
-  
+  const AddItemToCart = (item) => {
+    cartcntx.addItem(item);
+    
+  }; 
  const RemoveItemCart = (id) => {
      cartcntx.removeItem(id);
     console.log('id',id);
@@ -21,7 +24,7 @@ const Cart = (props) => {
           quantity={item.quantity} 
           price={item.price}
            onRemove={RemoveItemCart.bind(null,item.id)}
-          
+          onAdd={AddItemToCart.bind(null,item)}
         />
       ))}
     </ul>
