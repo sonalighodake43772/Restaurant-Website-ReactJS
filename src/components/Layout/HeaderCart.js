@@ -9,6 +9,7 @@ const HeaderCart = (props) => {
 
   cartctx.items.forEach((item) => {
     quantity = quantity + Number(item.quantity);
+    console.log(quantity);
   });
 
   return (
