@@ -5,37 +5,33 @@ const CartProvider = (props) => {
   const [items, updateItems] = useState([]);
 
   const AddItemToCart = (item) => {
-    console.log(item);
-    const index = items.findIndex((itemp) => itemp.id === item.id);
-
-    if (index === -1) {
-      items.push({
-        ...item,
-        quantity: Number(item.quantity),
-      });
-      const updateCart = [...items];
-      updateItems(updateCart);
+    const exist = items.find((itemp) => itemp.id === item.id);
+    if (exist) {
+      updateItems(
+        items.map((itemp) =>
+          itemp.id === item.id
+            ? { ...exist, quantity: exist.quantity + 1 }
+            : itemp
+        )
+      );
     } else {
-      items[index].quantity = items[index].quantity + Number(item.quantity);
-
-      //  items[index].price = items[index].price * items[index].quantity;
-      const updateCart = [...items];
-      updateItems(updateCart);
+      updateItems([...items, { ...item, quantity: Number(item.quantity) }]);
     }
   };
+
   const RemoveItemFromCart = (id) => {
-    const exist = items.find((x) => x.id === id);
+    const exist = items.find((itemp) => itemp.id === id);
     if (exist.quantity === 1) {
-      updateItems(items.filter((x) => x.id !== id));
+      updateItems(items.filter((itemp) => itemp.id !== id));
     } else {
       updateItems(
-        items.map((x) =>
-          x.id === id
+        items.map((itemp) =>
+          itemp.id === id
             ? {
                 ...exist,
                 quantity: exist.quantity - 1,
               }
-            : x
+            : itemp
         )
       );
     }
@@ -43,7 +39,7 @@ const CartProvider = (props) => {
 
   const cartContext = {
     items: items,
-   addItem: AddItemToCart,
+    addItem: AddItemToCart,
     removeItem: RemoveItemFromCart,
   };
 
